@@ -12,6 +12,22 @@ app.use(express.json());
 
 const validTypes = ["state", "district", "commodity", "market"];
 
+app.get("/api/commodities", (req, res) => {
+  // Ensure you're using the correct data loading method
+  const commodityData = loadData(); // Or however you're loading data
+
+  // Default to returning all records if no filters
+  let filteredRecords = commodityData.records || [];
+
+  // Optional: Add logging
+  console.log(`Total records: ${filteredRecords.length}`);
+
+  res.json({
+    total: filteredRecords.length,
+    records: filteredRecords,
+  });
+});
+
 app.get("/", (req, res) => {
   res.json({
     message: "Mandi Price API is running",
